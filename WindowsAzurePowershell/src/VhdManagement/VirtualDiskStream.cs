@@ -12,13 +12,13 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Tools.Vhd
+namespace Microsoft.WindowsAzure.Commands.Tools.Vhd
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
-    using Tools.Vhd.Model;
-    using Tools.Vhd.Model.Persistence;
+    using Vhd.Model;
+    using Vhd.Model.Persistence;
 
     /// <summary>
     /// Provides a logical stream over a virtual hard disk (VHD).
@@ -35,6 +35,7 @@ namespace Microsoft.WindowsAzure.Management.Tools.Vhd
         private IBlockFactory blockFactory;
         private IndexRange footerRange;
         private IndexRange fileDataRange;
+        private bool isDisposed;
 
         public VirtualDiskStream(string vhdPath)
         {
@@ -241,9 +242,16 @@ namespace Microsoft.WindowsAzure.Management.Tools.Vhd
             throw new NotSupportedException();
         }
 
-        public override void Close()
+        protected override void Dispose(bool disposing)
         {
-            this.vhdFile.Dispose();
+            if(!isDisposed)
+            {
+                if(disposing)
+                {
+                    this.vhdFile.Dispose();
+                    isDisposed = true;
+                }
+            }
         }
     }
 }

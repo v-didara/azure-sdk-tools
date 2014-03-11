@@ -12,12 +12,10 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Internal.Common
+namespace Microsoft.WindowsAzure.Commands.Internal.Common
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     public delegate bool CommandAction(IList<string> unnamedArgs, IDictionary<string, string> switches);
 

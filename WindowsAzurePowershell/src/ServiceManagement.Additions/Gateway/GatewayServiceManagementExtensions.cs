@@ -12,10 +12,10 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Service.Gateway
+namespace Microsoft.WindowsAzure.Commands.Service.Gateway
 {
     using System.IO;
-    using Microsoft.Samples.WindowsAzure.ServiceManagement;
+    using ServiceManagement;
 
     public static partial class GatewayServiceManagementExtensions
     {

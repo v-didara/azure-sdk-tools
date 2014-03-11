@@ -12,19 +12,17 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Sync.Upload
+namespace Microsoft.WindowsAzure.Commands.Sync.Upload
 {
     using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
     using System.Threading;
-    using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Auth;
     using Microsoft.WindowsAzure.Storage.Blob;
+    using Sync.Download;
     using Tools.Vhd;
     using Tools.Vhd.Model.Persistence;
-    using Sync.Download;
 
     public class PatchingBlobCreator : BlobCreatorBase
     {

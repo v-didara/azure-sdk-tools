@@ -12,13 +12,12 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Internal.Common
+namespace Microsoft.WindowsAzure.Commands.Internal.Common
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Diagnostics;
+    using System.Linq;
 
     public class ConsoleApplicationStandardOutputEvents : 
         StandardOutputEvents,
@@ -135,19 +134,6 @@ namespace Microsoft.WindowsAzure.Management.Internal.Common
             }
         }
 
-        public void ShowBanner(string title,string version)
-        {
-            FileVersionInfo versionInfo = FileVersionInfo.GetVersionInfo(
-                    System.Reflection.Assembly.GetExecutingAssembly().Location);
-            if (version == null)
-                version = versionInfo.FileVersion;
-
-            LogMessage("Windows(R) Azure(TM) {0} version {1}",title, version );
-            LogMessage("for Microsoft(R) .NET Framework 3.5");
-            LogMessage(versionInfo.LegalCopyright);
-            LogMessage("");
-        }
-     
         public void CommandUnknown(string commandName)
         {
             LogError("Command {0} is unknown.", commandName);

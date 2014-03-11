@@ -11,3 +11,5 @@ TestResults
 *.ncrunchsolution
 /Publish
 /Package
+/WindowsAzurePowershell/src/packages
+app.config

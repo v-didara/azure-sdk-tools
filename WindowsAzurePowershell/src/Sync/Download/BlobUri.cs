@@ -12,14 +12,13 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Sync.Download
+namespace Microsoft.WindowsAzure.Commands.Sync.Download
 {
     using System;
     using System.Collections;
     using System.Collections.Specialized;
     using System.Runtime.Serialization;
     using System.Text;
-    using System.Web;
 
     public class BlobUri
     {

@@ -12,12 +12,10 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Management.Sync
+namespace Microsoft.WindowsAzure.Commands.Sync
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using Internal.Common;
     using Microsoft.WindowsAzure.Storage;
     using Sync.Upload;
@@ -59,6 +57,10 @@ namespace Microsoft.WindowsAzure.Management.Sync
         void ProgressUploadStatus(double precentComplete, double avgThroughputMbps, TimeSpan remainingTime);
         void ProgressUploadComplete(TimeSpan elapsed);
 
+        void ProgressDownloadStatus(ProgressRecord record);
+        void ProgressDownloadStatus(double precentComplete, double avgThroughputMbps, TimeSpan remainingTime);
+        void ProgressDownloadComplete(TimeSpan elapsed);
+
         void ProgressOperationStatus(ProgressRecord record);
         void ProgressOperationStatus(double percentComplete, double avgThroughputMbps, TimeSpan remainingTime);
         void ProgressOperationComplete(TimeSpan elapsed);
@@ -75,6 +77,7 @@ namespace Microsoft.WindowsAzure.Management.Sync
         void DebugEmptyBlockDetected(IndexRange range);
         void ProgressEmptyBlockDetection(int processedRangeCount, int totalRangeCount);
 
+        void WriteVerboseWithTimestamp(string message, params object[] args);
     }
 
     internal class SyncOutputEvents : ConsoleApplicationStandardOutputEvents, ISyncOutputEvents
@@ -117,6 +120,26 @@ namespace Microsoft.WindowsAzure.Management.Sync
         {
             LogProgress("");
             LogMessage("Elapsed time for upload: {0}", 
+                FormatDuration(elapsed));
+        }
+
+        public void ProgressDownloadStatus(ProgressRecord record)
+        {
+            ProgressDownloadStatus(record.PercentComplete, record.AvgThroughputMbPerSecond, record.RemainingTime);
+        }
+
+        public void ProgressDownloadStatus(double precentComplete, double avgThroughputMbps, TimeSpan remainingTime)
+        {
+            LogProgress("Downloading: {0:0.0}% complete; Remaining Time: {1}; Throughput: {2:0.0}Mbps",
+                precentComplete,
+                FormatDuration(remainingTime),
+                avgThroughputMbps);
+        }
+
+        public void ProgressDownloadComplete(TimeSpan elapsed)
+        {
+            LogProgress("");
+            LogMessage("Elapsed time for download: {0}",
                 FormatDuration(elapsed));
         }
 
@@ -225,6 +248,11 @@ namespace Microsoft.WindowsAzure.Management.Sync
                 return;
             }
             LogProgress("Total block count: {0}, Processed block count: {1}", totalRangeCount, processedRangeCount);
+        }
+
+        public void WriteVerboseWithTimestamp(string message, params object[] args)
+        {
+            LogMessage(message, args);
         }
     }
 }
