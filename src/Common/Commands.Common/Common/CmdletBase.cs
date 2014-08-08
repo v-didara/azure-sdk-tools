@@ -21,10 +21,10 @@ namespace Microsoft.WindowsAzure.Commands.Utilities.Common
 
     public abstract class CmdletBase : PSCmdlet
     {
-        public CmdletBase()
-        {
-            HttpRestCallLogger.CurrentCmdlet = this;
-        }
+        // public CmdletBase()
+        // {
+            // HttpRestCallLogger.CurrentCmdlet = this;
+        // }
 
         protected string CurrentPath()
         {
