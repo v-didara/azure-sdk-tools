@@ -12,32 +12,20 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Model
+namespace Microsoft.WindowsAzure.Commands.ServiceManagement.IaaS.Extensions.DSC
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Microsoft.WindowsAzure.Commands.ServiceManagement.Properties;
+    using System.Globalization;
 
-    public class StorageServicePropertiesOperationContext : StorageServiceOperationContext
+
+    public class GetDscResourceException : UnauthorizedAccessException
     {
-        public string StorageAccountDescription { get; set; }
-
-        public string AffinityGroup { get; set; }
-
-        public string Location { get; set; }
-
-        public string GeoPrimaryLocation { get; set; }
-
-        public string GeoSecondaryLocation { get; set; } 
-
-        public string Label { get; set; }
-
-        public string StorageAccountStatus { get; set; }
-
-        public string StatusOfPrimary { get; set; }
-
-        public string StatusOfSecondary { get; set; }
-
-        public IEnumerable<string> Endpoints { get; set; }
-
-        public string AccountType { get; set; }
+        public GetDscResourceException(string resourceName, Exception e) :
+            base(String.Format(CultureInfo.CurrentUICulture, Resources.PublishVMDscExtensionGetDscResourceFailed, resourceName), e) { }
     }
 }
