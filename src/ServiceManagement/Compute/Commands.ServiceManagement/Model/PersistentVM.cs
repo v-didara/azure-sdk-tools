@@ -12,6 +12,7 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Security.Cryptography.X509Certificates;
@@ -19,7 +20,7 @@ using System.Xml.Serialization;
 
 namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Model
 {
-    public class PersistentVM : IPersistentVM
+    public class PersistentVM : IPersistentVM,IDisposable
     {
         public string AvailabilitySetName
         {
@@ -130,6 +131,33 @@ namespace Microsoft.WindowsAzure.Commands.ServiceManagement.Model
         public PersistentVM GetInstance()
         {
             return this;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                //Free managed resources
+                ResourceExtensionReferences = null;
+                DataVirtualHardDisksToBeDeleted = null;
+                X509Certificates = null;
+                WinRMCertificate = null;
+                ConfigurationSets = null;
+                DataVirtualHardDisks = null;
+                OSVirtualHardDisk = null;
+            }
+            //Free unmanaged resources
+        }
+
+        ~PersistentVM()
+        {
+            Dispose(false);
         }
     }
 }
